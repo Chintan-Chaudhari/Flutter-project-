@@ -37,6 +37,13 @@ jobs:
           artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
+      - name: Deploy to Firebase Hosting
+        run: |
+          # Authenticate with Firebase CLI (you need to set up Firebase credentials in GitHub secrets)
+          echo "$TOKEN" | firebase login:ci
+
+          # Deploy the APK to Firebase Hosting
+          firebase deploy --only hosting
 
 
 
